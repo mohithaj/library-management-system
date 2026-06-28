@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Issue Book</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; }
+        form { background: white; padding: 30px; border-radius: 8px; width: 400px; }
+        label { font-weight: bold; }
+        select { width: 100%; padding: 8px; margin: 8px 0 16px 0; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 20px; background: #FF9800; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; }
+        a { display: inline-block; margin-top: 15px; color: #FF9800; }
+    </style>
+</head>
+<body>
+    <h1>Issue a Book</h1>
+    <form action="/issues/issue" method="post">
+        <label>Select Book</label>
+        <select name="bookId" required>
+            <option value="">-- Select a Book --</option>
+            <option th:each="book : ${books}"
+                    th:value="${book.id}"
+                    th:text="${book.title} + ' (' + ${book.availableCopies} + ' available)'">
+            </option>
+        </select>
+        <label>Select Member</label>
+        <select name="memberId" required>
+            <option value="">-- Select a Member --</option>
+            <option th:each="member : ${members}"
+                    th:value="${member.id}"
+                    th:text="${member.name}">
+            </option>
+        </select>
+        <button type="submit">Issue Book</button>
+    </form>
+    <a href="/issues">← Back to Records</a>
+</body>
+</html>
